@@ -1025,7 +1025,7 @@ const fs = __importStar(__nccwpck_require__(7147));
 const fsHelper = __importStar(__nccwpck_require__(7219));
 const io = __importStar(__nccwpck_require__(7436));
 const path = __importStar(__nccwpck_require__(1017));
-function prepareExistingDirectory(git, repositoryPath, repositoryUrl, clean, ref) {
+function prepareExistingDirectory(git, repositoryPath, repositoryUrl, clean, ref, keep) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
         assert.ok(repositoryPath, 'Expected repositoryPath to be defined');
@@ -1112,7 +1112,7 @@ function prepareExistingDirectory(git, repositoryPath, repositoryUrl, clean, ref
                 remove = true;
             }
         }
-        if (remove) {
+        if (remove || !keep) {
             // Delete the contents of the directory. Don't delete the directory itself
             // since it might be the current working directory.
             core.info(`Deleting the contents of '${repositoryPath}'`);
@@ -1216,7 +1216,8 @@ function getSource(settings) {
             }
             // Prepare existing directory, otherwise recreate
             if (isExisting) {
-                yield gitDirectoryHelper.prepareExistingDirectory(git, settings.repositoryPath, repositoryUrl, settings.clean, settings.ref);
+                const keep = core.getBooleanInput('keep');
+                yield gitDirectoryHelper.prepareExistingDirectory(git, settings.repositoryPath, repositoryUrl, settings.clean, settings.ref, keep);
             }
             if (!git) {
                 // Downloading using REST API

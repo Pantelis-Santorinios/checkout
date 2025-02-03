@@ -127,7 +127,8 @@ Please refer to the [release page](https://github.com/actions/checkout/releases/
     # https://my-ghes-server.example.com
     github-server-url: ''
 
-    # If false, existing content under the repository will be forced removed before fetching
+    # If false, existing content under the repository will be forced removed before
+    # fetching
     # Default: true
     keep: ''
 ```
