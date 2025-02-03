@@ -11,7 +11,8 @@ export async function prepareExistingDirectory(
   repositoryPath: string,
   repositoryUrl: string,
   clean: boolean,
-  ref: string
+  ref: string,
+  keep: boolean
 ): Promise<void> {
   assert.ok(repositoryPath, 'Expected repositoryPath to be defined')
   assert.ok(repositoryUrl, 'Expected repositoryUrl to be defined')
@@ -114,7 +115,7 @@ export async function prepareExistingDirectory(
     }
   }
 
-  if (remove) {
+  if (remove || !keep) {
     // Delete the contents of the directory. Don't delete the directory itself
     // since it might be the current working directory.
     core.info(`Deleting the contents of '${repositoryPath}'`)

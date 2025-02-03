@@ -65,12 +65,14 @@ export async function getSource(settings: IGitSourceSettings): Promise<void> {
 
     // Prepare existing directory, otherwise recreate
     if (isExisting) {
+      const keep = core.getBooleanInput('keep');
       await gitDirectoryHelper.prepareExistingDirectory(
         git,
         settings.repositoryPath,
         repositoryUrl,
         settings.clean,
-        settings.ref
+        settings.ref,
+        keep
       )
     }
 
